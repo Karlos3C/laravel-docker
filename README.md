@@ -10,16 +10,7 @@ docker run --rm -u "$(id -u):$(id -g)" -v $(pwd):/var/www/html -w /var/www/html 
 # 📦 Instala las dependencias de Laravel usando Composer dentro de un contenedor Docker
 
 cp .env.example .env
-# ⚙️ Crea el archivo de configuración .env basado en el ejemplo
 
-echo "DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=sail
-DB_PASSWORD=password
-WWWUSER=1000
-WWWGROUP=1000" > .env
 # 🔑 Configura las variables de entorno principales para Laravel y MySQL
 
 ./vendor/bin/sail up -d
