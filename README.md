@@ -1,39 +1,44 @@
-# Clonar el repositorio y entrar a la carpeta
+# 🚰 Proyecto Laravel 12 + Vue 3 + Docker con Sail
+
+Este proyecto está configurado con **Laravel 12**, **Vue 3**, **Vite** y **MySQL**, ejecutándose en **Docker** mediante Laravel Sail. Listo para que cualquier miembro del equipo lo ejecute en Windows, macOS o Linux sin instalar PHP, Composer ni MySQL localmente.
+
+```bash
 git clone https://github.com/Karlos3C/laravel-docker.git && cd laravel-docker
+# 🧲 Clona el repositorio desde GitHub y entra en la carpeta del proyecto
 
-# Instalar dependencias de Laravel dentro de un contenedor Docker
-docker run --rm -u "$(id -u):$(id -g)" -v $(pwd):/var/www/html -w /var/www/html laravelsail/php85-composer:latest composer install --ignore-platform-reqs
+docker run --rm -u "$(id -u):$(id -g)" -v $(pwd):/var/www/html -w /var/www/html laravelsail/php84-composer:latest composer install --ignore-platform-reqs
+# 📦 Instala las dependencias de Laravel usando Composer dentro de un contenedor Docker
 
-# Crear el archivo de configuración .env
 cp .env.example .env
+# ⚙️ Crea el archivo de configuración .env basado en el ejemplo
 
-# Variables de entorno importantes
 echo "DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
-DB_DATABASE=nombre_db
+DB_DATABASE=laravel
 DB_USERNAME=sail
 DB_PASSWORD=password
 WWWUSER=1000
 WWWGROUP=1000" > .env
+# 🔑 Configura las variables de entorno principales para Laravel y MySQL
 
-# Iniciar los contenedores en segundo plano
 ./vendor/bin/sail up -d
+# 🐳 Inicia los contenedores en segundo plano
 
-# Generar la APP_KEY de Laravel
 ./vendor/bin/sail artisan key:generate
+# 🔐 Genera la APP_KEY de Laravel necesaria para cifrado y seguridad
 
-# Ejecutar migraciones y crear la base de datos
 ./vendor/bin/sail artisan migrate
+# 🗄️ Ejecuta las migraciones y crea las tablas en la base de datos
 
-# Instalar dependencias frontend
 ./vendor/bin/sail npm install
+# 📥 Instala las dependencias frontend necesarias para Vue y Vite
 
-# Ejecutar Vite en modo desarrollo
 ./vendor/bin/sail npm run dev
+# 🚧 Levanta Vite en modo desarrollo para compilar assets y recarga en caliente
 
-# Acceder a MySQL dentro del contenedor
 ./vendor/bin/sail mysql -e "SELECT 'Host: mysql, Usuario: sail, Password: password';"
+# 🐬 Verifica el acceso a MySQL desde el contenedor
 
-# Detener los contenedores cuando termines tu sesión de trabajo
 ./vendor/bin/sail down
+# ⛔ Detiene los contenedores cuando termines tu sesión de trabajo
